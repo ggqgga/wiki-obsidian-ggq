@@ -6,6 +6,109 @@ AI가 구축하고 유지하는 개인 지식 베이스 (LLM Wiki) 템플릿.
 
 > **`raw/my_folder/`** 는 사용자 개인 메모 폴더입니다. 클론 후 자신에게 맞는 이름으로 변경하세요. (예: `raw/john/`, `raw/notes/`)
 
+## 시작하기 전에 — 맥락 설정
+
+위키를 만들기 전에 **3가지 질문**에 답해야 합니다. 이게 없으면 AI가 목적 없이 정리만 합니다.
+
+| 질문 | 예시 |
+|------|------|
+| **나는 누구인가** | 이름, 하는 일, 역할 |
+| **왜 기록하고 싶은가** | 지금 뭐가 안 되는지, 기록이 되면 뭐가 달라지는지 |
+| **어떤 아웃풋을 만들고 싶은가** | 누구를 위해, 어떤 형태로 |
+
+> Gold In, Gold Out — 목적 있는 수집만이 골드 데이터가 됩니다.
+
+### 맥락 인터뷰
+
+3가지 질문에 대한 간단한 답변을 `raw/my_folder/나의-핵심-맥락.md`에 적은 후, Claude Code에서 아래 프롬프트를 실행하세요:
+
+```
+우리는 지금 "AI를 위한 세컨드 브레인"을 만들고 있어.
+raw/my_folder/나의-핵심-맥락.md 를 읽고, 나의 맥락을 더 깊이 이해하기 위해 인터뷰해줘.
+
+아래 순서로 한 번에 하나씩 질문해줘:
+1. "나는 누구인가"를 더 깊이 — 역할, 강점, 가치관
+2. "왜 기록하고 싶은가"를 더 깊이 — 지금 안 되는 것, 비전
+3. "어떤 아웃풋을 만들고 싶은가"를 더 깊이 — 대상, 형태, 1년 후 이상적인 모습
+
+각 질문에 대한 내 답변을 받으면 깔끔하게 요약하고 다음 질문으로 넘어가줘.
+3개 질문이 끝나면 전체를 종합해서 "나의 맥락 요약"을 raw/my_folder/나의-맥락-요약.md 에 저장해줘.
+```
+
+이 과정이 끝나면 AI가 당신의 맥락을 이해하고, 이후 모든 인제스트와 질의에서 **당신에게 맞는 방식으로** 지식을 정리합니다.
+
+## 셋업 가이드
+
+### 1. 저장소 클론
+
+```bash
+git clone https://github.com/ggqgga/wiki-obsidian-ggq.git my-wiki
+cd my-wiki
+```
+
+### 2. 개인 폴더 이름 변경
+
+```bash
+mv raw/my_folder raw/내이름    # 자신에게 맞는 이름으로 변경
+```
+
+`raw/CLAUDE.md`, `CLAUDE.md` 등에서 `my_folder` 를 변경한 이름으로 수정하세요.
+
+### 3. CLI 도구 설치
+
+```bash
+npm install -g llmwiki-cli
+npm install -g @tobilu/qmd    # 선택: 고급 검색
+```
+
+### 4. 위키 초기화
+
+```bash
+wiki init . --name my-wiki --domain "my knowledge base"
+```
+
+### 5. qmd 검색엔진 setup (선택)
+
+```bash
+qmd collection add ./wiki --name my-wiki
+qmd context add qmd://my-wiki "My knowledge base"
+qmd embed
+```
+
+### 6. Graphify 설치 (선택)
+
+```bash
+uv tool install graphifyy
+graphify claude install
+graphify hook install
+```
+
+### 7. Claude Code 스킬 설치
+
+```bash
+mkdir -p ~/.claude/skills/wiki/scripts
+cp skills/wiki/SKILL.md ~/.claude/skills/wiki/SKILL.md
+cp skills/wiki/scripts/*.sh ~/.claude/skills/wiki/scripts/
+chmod +x ~/.claude/skills/wiki/scripts/*.sh
+```
+
+### 8. Obsidian Web Clipper 설정
+
+[Obsidian Web Clipper](https://chromewebstore.google.com/detail/cnjifjpddelmedmihgijeibhnjfabmlf?utm_source=item-share-cb) 설치 후, 설정 → Templates에서 `scripts/wiki-template-*.json` 파일들을 import하세요.
+
+### 9. 맥락 인터뷰 실행
+
+위의 "시작하기 전에" 섹션의 프롬프트를 Claude Code에서 실행하세요.
+
+### 10. 첫 소스 인제스트
+
+```bash
+# 브라우저에서 Web Clipper로 클리핑 → raw/sources/ 에 자동 저장
+
+# Claude Code에서 대화형 인제스트
+/wiki add raw/sources/클리핑파일.md
+```
+
 ## 사용 흐름 (Quick Start)
 
 ```
@@ -232,105 +335,6 @@ updated: YYYY-MM-DD
 tags: [tag1, tag2]
 source: URL or description
 ---
-```
-
-## 시작하기 전에 — 맥락 설정
-
-위키를 만들기 전에 **3가지 질문**에 답해야 합니다. 이게 없으면 AI가 목적 없이 정리만 합니다.
-
-| 질문 | 예시 |
-|------|------|
-| **나는 누구인가** | 이름, 하는 일, 역할 |
-| **왜 기록하고 싶은가** | 지금 뭐가 안 되는지, 기록이 되면 뭐가 달라지는지 |
-| **어떤 아웃풋을 만들고 싶은가** | 누구를 위해, 어떤 형태로 |
-
-> Gold In, Gold Out — 목적 있는 수집만이 골드 데이터가 됩니다.
-
-### 맥락 인터뷰
-
-3가지 질문에 대한 간단한 답변을 `raw/my_folder/나의-핵심-맥락.md`에 적은 후, Claude Code에서 아래 프롬프트를 실행하세요:
-
-```
-우리는 지금 "AI를 위한 세컨드 브레인"을 만들고 있어.
-raw/my_folder/나의-핵심-맥락.md 를 읽고, 나의 맥락을 더 깊이 이해하기 위해 인터뷰해줘.
-
-아래 순서로 한 번에 하나씩 질문해줘:
-1. "나는 누구인가"를 더 깊이 — 역할, 강점, 가치관
-2. "왜 기록하고 싶은가"를 더 깊이 — 지금 안 되는 것, 비전
-3. "어떤 아웃풋을 만들고 싶은가"를 더 깊이 — 대상, 형태, 1년 후 이상적인 모습
-
-각 질문에 대한 내 답변을 받으면 깔끔하게 요약하고 다음 질문으로 넘어가줘.
-3개 질문이 끝나면 전체를 종합해서 "나의 맥락 요약"을 raw/my_folder/나의-맥락-요약.md 에 저장해줘.
-```
-
-이 과정이 끝나면 AI가 당신의 맥락을 이해하고, 이후 모든 인제스트와 질의에서 **당신에게 맞는 방식으로** 지식을 정리합니다.
-
-## 셋업 가이드
-
-### 1. 저장소 클론
-
-```bash
-git clone https://github.com/ggqgga/wiki-obsidian-ggq.git my-wiki
-cd my-wiki
-```
-
-### 2. 개인 폴더 이름 변경
-
-```bash
-mv raw/my_folder raw/내이름    # 자신에게 맞는 이름으로 변경
-```
-
-`raw/CLAUDE.md`, `CLAUDE.md` 등에서 `my_folder` 를 변경한 이름으로 수정하세요.
-
-### 3. CLI 도구 설치
-
-```bash
-npm install -g llmwiki-cli
-npm install -g @tobilu/qmd    # 선택: 고급 검색
-```
-
-### 4. 위키 초기화
-
-```bash
-wiki init . --name my-wiki --domain "my knowledge base"
-```
-
-### 5. qmd 검색엔진 setup (선택)
-
-```bash
-qmd collection add ./wiki --name my-wiki
-qmd context add qmd://my-wiki "My knowledge base"
-qmd embed
-```
-
-### 6. Graphify 설치 (선택)
-
-```bash
-uv tool install graphifyy
-graphify claude install
-graphify hook install
-```
-
-### 7. Claude Code 스킬 설치
-
-```bash
-mkdir -p ~/.claude/skills/wiki/scripts
-cp skills/wiki/SKILL.md ~/.claude/skills/wiki/SKILL.md
-cp skills/wiki/scripts/*.sh ~/.claude/skills/wiki/scripts/
-chmod +x ~/.claude/skills/wiki/scripts/*.sh
-```
-
-### 8. Obsidian Web Clipper 설정
-
-[Obsidian Web Clipper](https://chromewebstore.google.com/detail/cnjifjpddelmedmihgijeibhnjfabmlf?utm_source=item-share-cb) 설치 후, 설정 → Templates에서 `scripts/wiki-template-*.json` 파일들을 import하세요.
-
-### 9. 첫 소스 인제스트
-
-```bash
-# 브라우저에서 Web Clipper로 클리핑 → raw/sources/ 에 자동 저장
-
-# Claude Code에서 대화형 인제스트
-/wiki add raw/sources/클리핑파일.md
 ```
 
 ## 참고
