@@ -1,8 +1,7 @@
 name: Build Wiki Visualization
 
 on:
-  push:
-    branches: [main, master]
+  workflow_dispatch:    # 수동으로만 실행 (Actions 탭에서 Run workflow)
 
 permissions:
   pages: write
