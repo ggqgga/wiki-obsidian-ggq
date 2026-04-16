@@ -1,0 +1,67 @@
+{
+	"schemaVersion": "0.1.0",
+	"name": "wiki paper",
+	"behavior": "create",
+	"noteContentFormat": "{{content}}",
+	"properties": [
+		{
+			"name": "title",
+			"value": "{{title}}",
+			"type": "text"
+		},
+		{
+			"name": "created",
+			"value": "{{date}}",
+			"type": "date"
+		},
+		{
+			"name": "updated",
+			"value": "{{date}}",
+			"type": "date"
+		},
+		{
+			"name": "tags",
+			"value": "paper",
+			"type": "multitext"
+		},
+		{
+			"name": "author",
+			"value": "{{author}}",
+			"type": "text"
+		},
+		{
+			"name": "published",
+			"value": "{{published}}",
+			"type": "date"
+		},
+		{
+			"name": "domain",
+			"value": "{{domain}}",
+			"type": "text"
+		},
+		{
+			"name": "source",
+			"value": "{{url}}",
+			"type": "text"
+		}
+	],
+	"triggers": [
+		"https://arxiv.org/*",
+		"https://papers.ssrn.com/*",
+		"https://scholar.google.com/*",
+		"https://pubmed.ncbi.nlm.nih.gov/*",
+		"https://www.dbpia.co.kr/*",
+		"https://www.riss.kr/*",
+		"https://www.kci.go.kr/*",
+		"https://scienceon.kisti.re.kr/*",
+		"https://www.nature.com/*",
+		"https://www.science.org/*",
+		"https://ieeexplore.ieee.org/*",
+		"https://dl.acm.org/*",
+		"https://openreview.net/*",
+		"https://huggingface.co/papers/*",
+		"https://paperswithcode.com/*"
+	],
+	"noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}}-{{title|safe_name|trim}}",
+	"path": "raw/sources"
+}

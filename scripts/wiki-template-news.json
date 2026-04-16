@@ -1,0 +1,78 @@
+{
+	"schemaVersion": "0.1.0",
+	"name": "wiki news",
+	"behavior": "create",
+	"noteContentFormat": "{{content}}",
+	"properties": [
+		{
+			"name": "title",
+			"value": "{{title}}",
+			"type": "text"
+		},
+		{
+			"name": "created",
+			"value": "{{date}}",
+			"type": "date"
+		},
+		{
+			"name": "updated",
+			"value": "{{date}}",
+			"type": "date"
+		},
+		{
+			"name": "tags",
+			"value": "news",
+			"type": "multitext"
+		},
+		{
+			"name": "author",
+			"value": "{{author}}",
+			"type": "text"
+		},
+		{
+			"name": "published",
+			"value": "{{published}}",
+			"type": "date"
+		},
+		{
+			"name": "domain",
+			"value": "{{domain}}",
+			"type": "text"
+		},
+		{
+			"name": "source",
+			"value": "{{url}}",
+			"type": "text"
+		}
+	],
+	"triggers": [
+		"https://news.naver.com/*",
+		"https://n.news.naver.com/*",
+		"https://news.daum.net/*",
+		"https://www.chosun.com/*",
+		"https://www.joongang.co.kr/*",
+		"https://www.donga.com/*",
+		"https://www.hankyung.com/*",
+		"https://www.mk.co.kr/*",
+		"https://www.sedaily.com/*",
+		"https://www.hani.co.kr/*",
+		"https://www.khan.co.kr/*",
+		"https://www.yna.co.kr/*",
+		"https://www.ytn.co.kr/*",
+		"https://www.sbs.co.kr/news/*",
+		"https://news.kbs.co.kr/*",
+		"https://imnews.imbc.com/*",
+		"https://zdnet.co.kr/*",
+		"https://www.bloter.net/*",
+		"https://www.etnews.com/*",
+		"https://www.itworld.co.kr/*",
+		"https://www.reuters.com/*",
+		"https://www.bbc.com/*",
+		"https://www.nytimes.com/*",
+		"https://www.wsj.com/*",
+		"https://www.bloomberg.com/*",
+		"https://www.theguardian.com/*"
+	],
+	"noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}}-{{title|safe_name|trim}}",
+	"path": "raw/sources"
+}
