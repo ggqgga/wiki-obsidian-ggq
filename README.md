@@ -57,6 +57,7 @@ mv raw/my_folder raw/내이름    # 자신에게 맞는 이름으로 변경
 ### 3. CLI 도구 설치
 
 ```bash
+brew install gh               # GitHub CLI (git 동기화에 필요)
 npm install -g llmwiki-cli
 npm install -g @tobilu/qmd    # 선택: 고급 검색
 ```
