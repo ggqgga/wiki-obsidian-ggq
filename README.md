@@ -126,6 +126,8 @@ chmod +x ~/.claude/skills/wiki/scripts/*.sh
 6. 동기화   /wiki sync → GitHub에 push
 ```
 
+> 전체 명령어는 Claude Code에서 `/wiki ?` 를 입력하면 확인할 수 있습니다.
+
 ### 일상적인 사용 예시
 
 ```bash
