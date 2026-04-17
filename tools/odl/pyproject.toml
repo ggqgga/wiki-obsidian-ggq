@@ -1,0 +1,9 @@
+[project]
+name = "odl-ingest"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "opendataloader-pdf>=2.2.1",
+]

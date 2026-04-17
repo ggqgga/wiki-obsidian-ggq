@@ -3,4 +3,8 @@ dist/
 .DS_Store
 .obsidian/
 graphify-out/
-.obsidian/
+
+# tools/odl — OpenDataLoader PDF ingest venv (installed locally, not committed)
+tools/odl/.venv/
+tools/odl/uv.lock
+__pycache__/
